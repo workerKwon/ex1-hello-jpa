@@ -42,12 +42,17 @@ public class JpaMain {
 //            findMember.setName("helloJPA");
 
             // Member 테이블이 아니고 Member 객체를 대상으로 동작한다. 즉 Member 객체를 가져오라는 쿼리가 된다.
-            List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList();
+            // List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
+            //         .getResultList();
 
-            for(Member member : resultList) {
-                System.out.println("member = " + member);
-            }
+            // for(Member member : resultList) {
+            //     System.out.println("member = " + member);
+            // }
+
+            Member member = new Member();
+            member.setId(1L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.GUEST);
 
             tx.commit();
         } catch (Exception e) {
