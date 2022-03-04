@@ -29,15 +29,13 @@ public class Order {
      * 객체 중심의 설계이다.
      * Order를 조회하면 그와 연관된 member를 getMember로 바로 조회할 수 있다.
      */
-    private Member member;
-
-    public Member getMember() {
-        return this.member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
+    // private Member member;
+    // public Member getMember() {
+    //     return this.member;
+    // }
+    // public void setMember(Member member) {
+    //     this.member = member;
+    // }
 
     private LocalDateTime orderDate;
 

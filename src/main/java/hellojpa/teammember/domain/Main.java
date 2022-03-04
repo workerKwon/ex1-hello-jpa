@@ -1,15 +1,12 @@
-package hellojpa;
+package hellojpa.teammember.domain;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import hellojpa.jpashop.domain.Member;
-import hellojpa.jpashop.domain.Order;
-
-public class JpaMain {
-
+public class Main {
+    
     public static void main(String[] args) {
 
         // Persistence가 데이터베이스 설정 정보를 조회해서 entityManagerFactory를 만든다. DB당 하나씩 묶여서 사용된다.
@@ -24,15 +21,22 @@ public class JpaMain {
 
         try {
 
-            Order order = em.find(Order.class, 1L);
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // 데이터 중심 설계로 인한 불편함
-            Long memberId = order.getMemberId();
-            Member member = em.find(Member.class, memberId);
-            System.out.println(member);
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team);
+            em.persist(member);
 
-            // 객체 중심의 설계로 연관된 member를 바로 가져오도록 하자.
-            // order.getMember(); 
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
+
+            // 이런식으로 하면 DB의 외래키 값이 업데이트 된다.
+            Team newTeam = em.find(Team.class, 100L);
+            findMember.setTeam(newTeam);
 
             tx.commit();
         } catch (Exception e) {
