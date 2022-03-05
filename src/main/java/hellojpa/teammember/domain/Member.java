@@ -52,8 +52,13 @@ public class Member {
         return this.team;
     }
 
+    /**
+     * 연관관계 편의 메소드
+     * @param team
+     */
     public void setTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this); // 연관된 team 객체의 members에 연관된 member객체(this)를 넣어준다.
     }
 
 
