@@ -1,11 +1,14 @@
 package hellojpa.teammember.domain;
 
+import java.util.concurrent.locks.Lock;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -60,6 +63,10 @@ public class Member {
         this.team = team;
         team.getMembers().add(this); // 연관된 team 객체의 members에 연관된 member객체(this)를 넣어준다.
     }
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
 
 }
