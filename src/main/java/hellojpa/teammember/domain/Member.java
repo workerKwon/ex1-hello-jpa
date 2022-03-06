@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "MEMBERS")
-public class Member {
+public class Member extends BaseEntity{
     
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")

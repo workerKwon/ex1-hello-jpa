@@ -1,5 +1,6 @@
 package hellojpa.teammember.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -30,6 +31,9 @@ public class Main {
             Member member = new Member();
             member.setName("member1");
             member.setTeam(team);
+            member.setCreatedBy("kim"); // MappedSuperclass를 사용한 필드 세팅.
+            member.setCreatedDate(LocalDateTime.now());
+
             em.persist(member);
 
             /**
