@@ -53,8 +53,32 @@ public class Main {
             System.out.println("findTeam = " + findTeam.getName());
 
             // 이런식으로 하면 DB의 외래키 값이 업데이트 된다.
-            Team newTeam = em.find(Team.class, 100L);
-            findMember.setTeam(newTeam);
+            // Team newTeam = em.find(Team.class, 100L);
+            // findMember.setTeam(newTeam);
+
+
+
+
+
+
+
+            // 상속관계 매핑
+            Movie movie = new Movie();
+            movie.setActor("aaaa");
+            movie.setDirector("bbbb");
+            movie.setName("name");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
+            // identity 전략이라서 persist 단계에서 DB에 저장을 하고, 저장된 값을 1차 캐시에 다시 저장해서 조회를 한다.
+            System.out.println("================");
+
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie = " + findMovie.getId() + findMovie.getDirector());
 
             tx.commit();
         } catch (Exception e) {
