@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ORDERS")
-public class Order {
+public class Order extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "ORDER_ID")
@@ -39,12 +39,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-    public Member getMember() {
-        return this.member;
-    }
-    public void setMember(Member member) {
-        this.member = member;
-    }
 
     @OneToOne
     @JoinColumn(name = "DELIVERY_ID")
@@ -52,14 +46,6 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
-
-    public List<OrderItem> getOrderItems() {
-        return this.orderItems;
-    }
-
-    public void setOrderItems(List<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 
     private LocalDateTime orderDate;
 
@@ -102,6 +88,21 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    public Member getMember() {
+        return this.member;
+    }
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return this.orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
 }

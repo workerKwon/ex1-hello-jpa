@@ -1,12 +1,10 @@
-package hellojpa.teammember.domain;
+package hellojpa.jpashop.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "BOOK2")
-public class Book extends Item{
-
+public class Book extends Item {
+    
     private String author;
     private String isbn;
 
@@ -25,5 +23,5 @@ public class Book extends Item{
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
-    
+
 }

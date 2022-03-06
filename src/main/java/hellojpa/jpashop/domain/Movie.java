@@ -1,12 +1,10 @@
-package hellojpa.teammember.domain;
+package hellojpa.jpashop.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "MOVIE2")
 public class Movie extends Item {
-
+    
     private String director;
     private String actor;
 
@@ -25,5 +23,5 @@ public class Movie extends Item {
     public void setActor(String actor) {
         this.actor = actor;
     }
-    
+
 }

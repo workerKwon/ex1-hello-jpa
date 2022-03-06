@@ -30,7 +30,7 @@ public class JpaMain {
         try {
 
             Order order = em.find(Order.class, 1L);
-            order.addOrderItem(new OrderItem()); // 양방향 연관관계 편의 메소드(order를 통해서 orderItem을 객체 단계에서 조회하기 위해 양쪽 객체에 모두 값을 세팅.)
+            // order.addOrderItem(new OrderItem()); // 양방향 연관관계 편의 메소드(order를 통해서 orderItem을 객체 단계에서 조회하기 위해 양쪽 객체에 모두 값을 세팅.)
 
             // 데이터 중심 설계로 인한 불편함
             // Long memberId = order.getMemberId();
@@ -38,7 +38,12 @@ public class JpaMain {
             // System.out.println(member);
 
             // 객체 중심의 설계로 연관된 member를 바로 가져오도록 하자.
-            order.getMember(); 
+            // Member member = order.getMember(); // ORDERS 테이블에 아무것도 없어서 order.getMember()로 불러올 수 없음
+
+            Book book = new Book();
+            book.setName("JPA ORM");
+            book.setAuthor("kwon");
+            em.persist(book);
 
             tx.commit();
         } catch (Exception e) {

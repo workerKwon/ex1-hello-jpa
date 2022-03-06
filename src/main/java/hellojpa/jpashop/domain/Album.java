@@ -1,15 +1,12 @@
-package hellojpa.teammember.domain;
+package hellojpa.jpashop.domain;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@DiscriminatorValue("A") // DTYPE의 값을 바꿔서 넣을 수 있다.
-@Table(name = "ALBUM2")
 public class Album extends Item{
     
     private String artist;
+    private String etc;
 
     public String getArtist() {
         return this.artist;
@@ -17,6 +14,14 @@ public class Album extends Item{
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    public String getEtc() {
+        return this.etc;
+    }
+
+    public void setEtc(String etc) {
+        this.etc = etc;
     }
 
 }
