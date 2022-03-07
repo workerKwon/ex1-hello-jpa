@@ -6,6 +6,7 @@ import java.util.concurrent.locks.Lock;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import net.bytebuddy.agent.builder.AgentBuilder.LambdaInstrumentationStrategy;
 
 @Entity
 @Table(name = "MEMBERS")
@@ -52,7 +55,7 @@ public class Member extends BaseEntity{
     //     this.teamId = teamId;
     // }
 
-    @ManyToOne // Member 여럿에 Team 하나
+    @ManyToOne(fetch = FetchType.EAGER) // Member 여럿에 Team 하나
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
@@ -70,7 +73,7 @@ public class Member extends BaseEntity{
     }
 
     // 일대일 연관관계
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
