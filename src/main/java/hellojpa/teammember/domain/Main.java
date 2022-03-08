@@ -134,6 +134,19 @@ public class Main {
 
             em.persist(parent);
 
+            em.flush();
+            em.clear();
+
+
+
+
+            
+            // 고아 객체
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0); // child 객체가 제거 됐기 때문에 제거된 child의 데이터에 대한 delete 쿼리가 날아간다.
+
+            // 주인 객체를 지우면 연관 객체들도 다 지워지는 쿼리가 날아간다.
+            // em.remove(findParent);
 
             tx.commit();
         } catch (Exception e) {
