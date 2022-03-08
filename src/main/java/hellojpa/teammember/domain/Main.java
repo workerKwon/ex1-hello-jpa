@@ -92,30 +92,48 @@ public class Main {
 
 
             // 즉시로딩 지연로딩
-            Locker locker = new Locker();
-            locker.setName("LockerBBBB");
-            em.persist(locker);
+            // Locker locker = new Locker();
+            // locker.setName("LockerBBBB");
+            // em.persist(locker);
 
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team);
+            // Team team = new Team();
+            // team.setName("TeamA");
+            // em.persist(team);
 
-            Member member = new Member();
-            member.setName("member1");
-            member.setTeam(team);
-            member.setLocker(locker);
-            em.persist(member);
+            // Member member = new Member();
+            // member.setName("member1");
+            // member.setTeam(team);
+            // member.setLocker(locker);
+            // em.persist(member);
 
-            em.flush();
-            em.clear();
+            // em.flush();
+            // em.clear();
 
-            Member m = em.find(Member.class, member.getId());
+            // Member m = em.find(Member.class, member.getId());
 
-            System.out.println("---------------------");
-            m.getTeam().getName(); // 즉시로딩이라서 em.find(Member.class, member.getId())를 호출 할 때 1차 캐시에 저장된걸 불러오는 것이므로 쿼리를 또 날리지 않는다.
-            System.out.println("================");
-            m.getLocker().getName(); // OneToOne은 양쪽에서 지연로딩을 해줘야 한다.
-            System.out.println("================");
+            // System.out.println("---------------------");
+            // m.getTeam().getName(); // 즉시로딩이라서 em.find(Member.class, member.getId())를 호출 할 때 1차 캐시에 저장된걸 불러오는 것이므로 쿼리를 또 날리지 않는다.
+            // System.out.println("================");
+            // m.getLocker().getName(); // OneToOne은 양쪽에서 지연로딩을 해줘야 한다.
+            // System.out.println("================");
+
+
+
+
+
+            
+
+
+            // 영속성 전이
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+
 
             tx.commit();
         } catch (Exception e) {
