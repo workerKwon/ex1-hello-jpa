@@ -2,6 +2,7 @@ package hellojpa.teammember.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -151,11 +152,61 @@ public class Main {
 
 
 
-            // 임베디드 타입
+            // // 임베디드 타입
+            // Member member = new Member();
+            // member.setHomeAddress(new Address("city1", "street", "address1"));
+            // member.setWorkPeriod(new Period());
+            // em.persist(member);
+
+
+
+
+            // 값 타입 컬렉션
             Member member = new Member();
-            member.setHomeAddress(new Address());
-            member.setWorkPeriod(new Period());
+            member.setName("member1");
+            member.setHomeAddress(new Address("city1", "street1", "address1"));
+
+            member.getFavoritFoods().add("치킨");
+            member.getFavoritFoods().add("족발");
+            member.getFavoritFoods().add("피자");
+
+            member.getAddressHistory().add(new Address("old1", "street", "address2"));
+            member.getAddressHistory().add(new Address("old2", "street", "address2"));
+
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            // // 값 타입 컬렉션은 기본적으로 지연로딩 전략을 사용한다.
+            System.out.println("==================== START =====================");
+            Member findMember = em.find(Member.class, member.getId());
+
+            // List<Address> addressHistory = findMember.getAddressHistory();
+            // for(Address address : addressHistory) {
+            //     System.out.println("address = " + address.getCity());
+            // }
+
+            // Set<String> favoriteFoods = findMember.getFavoritFoods();
+            // for(String food : favoriteFoods) {
+            //     System.out.println("favoriteFoods = " + food);
+            // }
+
+            findMember.setHomeAddress(new Address("new city", "streetA", "12484"));
+
+            findMember.getFavoritFoods().remove("치킨");
+            findMember.getFavoritFoods().add("한식");
+
+            /**
+             * 값 타입 컬렉션은 변경사항이 발생하면, 주인 엔티티와 연관된 모든 데이터를 다 삭제하고, 값 타입 컬렉션에 있는 현재 값을 모두 다시 저장한다.
+             * 그래서 사용하기에 위험한 경우가 많다.
+             * 실무에서는 값타입 컬렉션 대신 일대다 관계를 고려하는게 낫다.
+             *      - 영속성 전이 + 고아 객체를 사용해서 값 타입 컬렉션 처럼 사용
+             * */ 
+            findMember.getAddressHistory().remove(new Address("old1", "street", "address2"));
+            findMember.getAddressHistory().add(new Address("changedcity", "street", "address2"));
+
+
 
             tx.commit();
         } catch (Exception e) {
