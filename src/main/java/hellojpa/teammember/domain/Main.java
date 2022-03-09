@@ -8,8 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-import org.h2.util.TempFileDeleter;
-
 public class Main {
     
     public static void main(String[] args) {
@@ -125,28 +123,39 @@ public class Main {
 
 
             // 영속성 전이
-            Child child1 = new Child();
-            Child child2 = new Child();
+            // Child child1 = new Child();
+            // Child child2 = new Child();
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            // Parent parent = new Parent();
+            // parent.addChild(child1);
+            // parent.addChild(child2);
 
-            em.persist(parent);
+            // em.persist(parent);
 
-            em.flush();
-            em.clear();
-
-
+            // em.flush();
+            // em.clear();
 
 
-            
-            // 고아 객체
-            Parent findParent = em.find(Parent.class, parent.getId());
-            findParent.getChildList().remove(0); // child 객체가 제거 됐기 때문에 제거된 child의 데이터에 대한 delete 쿼리가 날아간다.
 
-            // 주인 객체를 지우면 연관 객체들도 다 지워지는 쿼리가 날아간다.
-            // em.remove(findParent);
+
+
+            // // 고아 객체
+            // Parent findParent = em.find(Parent.class, parent.getId());
+            // findParent.getChildList().remove(0); // child 객체가 제거 됐기 때문에 제거된 child의 데이터에 대한 delete 쿼리가 날아간다.
+
+            // // 주인 객체를 지우면 연관 객체들도 다 지워지는 쿼리가 날아간다.
+            // // em.remove(findParent);
+
+
+
+
+
+
+            // 임베디드 타입
+            Member member = new Member();
+            member.setHomeAddress(new Address());
+            member.setWorkPeriod(new Period());
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e) {
