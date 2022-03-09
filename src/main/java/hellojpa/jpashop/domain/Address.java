@@ -57,8 +57,6 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(getCity(), getStreet(), getZipcode());
-    }
-    
-    
+    }    
     
 }
